@@ -17,7 +17,7 @@ class ScrollNumberAnimatdView: UIView {
         }
     }
     var oldNumber = 0
-
+    var margin: CGFloat = 5
     var textColor: UIColor = .white
     var font = UIFont.systemFont(ofSize: 14)
     var minLength = 0 // 最小显示长度，不够补零
@@ -90,9 +90,19 @@ extension ScrollNumberAnimatdView {
     }
     
     private func configScrollLayers() {
+        /*
         // 平均分配宽度
         let width = frame.width / CGFloat(numbersText.count)
         let height = frame.height
+        */
+        
+        let suitSizeLabel = UILabel(frame: .zero)
+        suitSizeLabel.font = self.font
+        suitSizeLabel.text = self.newNumber.description
+        suitSizeLabel.sizeToFit()
+        
+        let width = suitSizeLabel.frame.width / CGFloat(numbersText.count) + margin
+        let height = suitSizeLabel.frame.height
         
         for (index, text) in numbersText.enumerated() {
             let layer = CAScrollLayer()
